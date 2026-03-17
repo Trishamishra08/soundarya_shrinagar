@@ -14,14 +14,14 @@ import side1 from '../assets/images/blog_skincare.png';
 import side2 from '../assets/images/blog_haircare.png';
 
 const floatingImages = [
-  { src: img1, size: 'w-24 h-32 md:w-32 md:h-44', top: '15%', left: '15%', delay: 0 },
-  { src: img2, size: 'w-20 h-28 md:w-28 md:h-40', top: '25%', left: '25%', delay: 1 },
-  { src: img3, size: 'w-28 h-36 md:w-36 md:h-48', top: '10%', left: '42%', delay: 0.5 },
-  { src: img4, size: 'w-24 h-32 md:w-32 md:h-44', top: '20%', left: '55%', delay: 1.5 },
-  { src: img5, size: 'w-20 h-28 md:w-28 md:h-40', top: '15%', left: '70%', delay: 0.2 },
-  { src: img6, size: 'w-24 h-32 md:w-30 md:h-42', top: '45%', left: '20%', delay: 0.8 },
-  { src: img7, size: 'w-28 h-36 md:w-36 md:h-48', top: '50%', left: '40%', delay: 1.2 },
-  { src: img8, size: 'w-20 h-28 md:w-28 md:h-40', top: '48%', left: '65%', delay: 0.4 },
+  { src: img1, size: 'w-16 h-24 md:w-32 md:h-44', top: '12%', left: '10%', delay: 0 },
+  { src: img2, size: 'w-14 h-20 md:w-28 md:h-40', top: '22%', left: '22%', delay: 1 },
+  { src: img3, size: 'w-20 h-26 md:w-36 md:h-48', top: '8%', left: '42%', delay: 0.5 },
+  { src: img4, size: 'w-16 h-24 md:w-32 md:h-44', top: '18%', left: '65%', delay: 1.5 },
+  { src: img5, size: 'w-14 h-20 md:w-28 md:h-40', top: '12%', left: '80%', delay: 0.2 },
+  { src: img6, size: 'w-16 h-24 md:w-30 md:h-42', top: '48%', left: '12%', delay: 0.8 },
+  { src: img7, size: 'w-20 h-26 md:w-36 md:h-48', top: '58%', left: '45%', delay: 1.2 },
+  { src: img8, size: 'w-14 h-20 md:w-28 md:h-40', top: '52%', left: '75%', delay: 0.4 },
 ];
 
 const AboutSection = () => {
@@ -61,7 +61,7 @@ const AboutSection = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
-            className="text-5xl md:text-7xl font-decorative text-brand-dark drop-shadow-xl tracking-tighter italic"
+            className="text-4xl md:text-6xl font-decorative text-brand-dark drop-shadow-lg tracking-tighter italic"
             style={{ textShadow: '2px 2px 4px rgba(255, 255, 255, 0.5)' }}
           >
             Our Story
