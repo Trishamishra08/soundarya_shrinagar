@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FiHeart, FiShoppingBag, FiUser, FiMenu, FiX } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import logo from '../assets/images/logo_pink.png';
+import logo from '../assets/images/logo.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,7 +37,8 @@ const Navbar = () => {
                 <img
                   src={logo}
                   alt="Soundarya Shrinagar Logo"
-                  className="h-10 w-auto md:h-14"
+                  className="h-10 w-auto md:h-14 logo-blend"
+                  style={{ mixBlendMode: 'multiply' }}
                 />
               </motion.div>
 
@@ -122,7 +123,7 @@ const Navbar = () => {
               </button>
 
               <div className="mt-4 mb-8">
-                <img src={logo} alt="Logo" className="h-14 w-auto mb-4" />
+                <img src={logo} alt="Logo" className="h-14 w-auto mb-4 logo-blend" style={{ mixBlendMode: 'multiply', backgroundColor: '#E8B4B8' }} />
                 <h2
                   className="text-xl text-white uppercase tracking-widest leading-none"
                   style={{ fontFamily: "'Cinzel Decorative', serif", fontWeight: 900 }}
