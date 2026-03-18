@@ -5,7 +5,7 @@ import footerBg from '../../assets/images/footer_bg.jpg';
 
 const Footer = () => {
   return (
-    <footer className="relative bg-[#FCE4EC] text-brand-dark pt-8 pb-4 border-t border-brand-pink/10 overflow-hidden">
+    <footer className="relative bg-[#FBD5DA] text-brand-dark pt-8 pb-4 border-t border-brand-pink/10 overflow-hidden">
       {/* Sketched Cosmetic Background - High Visibility */}
       <div 
         className="absolute inset-0 z-0 opacity-25 pointer-events-none"
@@ -27,7 +27,7 @@ const Footer = () => {
               backgroundSize: 'contain',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
-              backgroundColor: '#FCE4EC',
+              backgroundColor: '#FBD5DA',
               backgroundBlendMode: 'multiply'
             }}
           ></div>
