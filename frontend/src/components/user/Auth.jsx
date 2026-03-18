@@ -46,39 +46,38 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDFCFB] flex items-center justify-center p-4 md:p-8">
+    <div className="min-h-screen bg-[#FDFCFB] flex flex-col items-center justify-center p-4">
       {/* Decorative Background Elements */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden opacity-30">
-        <div className="absolute -top-24 -left-24 w-96 h-96 bg-brand-pink/10 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-brand-gold/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,rgba(232,180,184,0.15)_0%,transparent_70%)]"></div>
       </div>
 
-      <div className="w-full max-w-[420px] bg-white rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(92,46,62,0.15)] border border-gray-100 flex flex-col relative z-10">
+      <div className="w-full max-w-[400px] bg-white rounded-[2rem] overflow-hidden shadow-[0_25px_60px_rgba(92,46,62,0.12)] border border-gray-100 flex flex-col relative z-10">
         {/* Header Section */}
-        <div className="bg-[#FFEFEF] p-10 text-center border-b border-brand-pink/10 relative">
-          <div className="mb-6 relative inline-block">
-            <div className="absolute inset-0 bg-white/40 blur-xl rounded-full scale-150"></div>
-            <img src={logoPink} alt="Logo" className="h-12 md:h-14 mx-auto relative z-10" />
+        <div className="bg-[#FFEFEF] p-8 text-center border-b border-brand-pink/5 relative">
+          <div className="mb-4">
+            <img src={logoPink} alt="Logo" className="h-10 mx-auto" />
           </div>
           
           <h2 
-            className="text-2xl md:text-3xl font-black text-[#5C2E3E] uppercase tracking-[-0.02em] leading-[0.9] mb-8"
-            style={{ fontFamily: "'Cinzel Decorative', serif" }}
+            className="text-lg md:text-xl font-black text-[#5C2E3E] uppercase tracking-[0.15em] leading-[1.2] mb-8 flex flex-col items-center"
+            style={{ fontFamily: "'Playfair Display', serif" }}
           >
-            Welcome <br/> <span className="text-brand-pink italic lowercase font-serif text-lg tracking-normal">to the</span> <br/> World of <br/> Soundarya
+            <span className="text-[9px] font-sans font-black tracking-[0.4em] opacity-40 mb-1">Welcome to the</span>
+            World of Soundarya
           </h2>
           
           {/* Custom Toggle */}
-          <div className="absolute -bottom-px left-8 right-8 flex gap-4">
+          <div className="absolute -bottom-px left-6 right-6 flex gap-6">
             <button 
               onClick={() => { setIsLogin(true); setStep(1); }}
-              className={`flex-1 pb-4 text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-300 ${isLogin ? 'text-[#5C2E3E] border-b-2 border-[#5C2E3E]' : 'text-gray-400 hover:text-brand-pink'}`}
+              className={`flex-1 pb-3 text-[9px] font-black uppercase tracking-[0.2em] transition-all duration-300 ${isLogin ? 'text-[#5C2E3E] border-b-2 border-[#5C2E3E]' : 'text-gray-300 hover:text-brand-pink'}`}
             >
               Sign In
             </button>
             <button 
               onClick={() => { setIsLogin(false); setStep(1); }}
-              className={`flex-1 pb-4 text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-300 ${!isLogin ? 'text-[#5C2E3E] border-b-2 border-[#5C2E3E]' : 'text-gray-400 hover:text-brand-pink'}`}
+              className={`flex-1 pb-3 text-[9px] font-black uppercase tracking-[0.2em] transition-all duration-300 ${!isLogin ? 'text-[#5C2E3E] border-b-2 border-[#5C2E3E]' : 'text-gray-300 hover:text-brand-pink'}`}
             >
               Registration
             </button>
