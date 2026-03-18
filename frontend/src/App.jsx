@@ -17,6 +17,7 @@ import Auth from './components/user/Auth';
 import Profile from './components/user/Profile';
 import BlogSection from './components/user/BlogSection';
 import Offers from './components/user/Offers';
+import ScrollToTop from './components/user/ScrollToTop';
 
 // Admin Module Imports
 import AdminDashboard from './components/admin/AdminDashboard';
@@ -57,6 +58,7 @@ function App() {
   return (
     <ShopProvider>
       <Router>
+        <ScrollToTop />
         <Routes>
           <Route path="/admin/*" element={<AdminRoutes />} />
           <Route path="/*" element={<UserRoutes />} />

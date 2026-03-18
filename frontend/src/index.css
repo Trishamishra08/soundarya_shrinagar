@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 @layer base {
   body {
     @apply bg-brand-light font-sans text-brand-dark overflow-x-hidden pb-16 lg:pb-0;

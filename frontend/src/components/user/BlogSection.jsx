@@ -92,17 +92,17 @@ const BlogSection = () => {
   const floatingSizeClasses = "w-14 md:w-44 h-14 md:h-44 overflow-hidden bg-white p-1 md:p-3 shadow-2xl border border-gray-100 flex items-center justify-center";
 
   return (
-    <section className="py-12 md:py-24 bg-[#FEFAF6] overflow-hidden">
+    <section className="pt-6 md:pt-10 pb-12 md:pb-24 bg-[#FEFAF6] overflow-hidden">
       <div className="container mx-auto px-4 md:px-8">
         
         {/* COMPACT JOURNAL HERO - EXACT TYPOGRAPHY MATCH */}
-        <div className="relative mb-8 md:mb-12 text-center pt-2 md:pt-4 max-w-5xl mx-auto">
+        <div className="relative mb-6 md:mb-10 text-center pt-0 max-w-5xl mx-auto">
           
           <motion.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-brand-pink font-bold uppercase tracking-[0.6em] text-[8px] md:text-[11px] block mb-2 md:mb-4"
+            className="text-brand-pink font-bold uppercase tracking-[0.6em] text-[8px] md:text-[11px] block mb-1 md:mb-2"
           >
             SOUNDARYA SHRINAGAR
           </motion.span>
@@ -170,7 +170,7 @@ const BlogSection = () => {
         </div>
 
         {/* COMPACT BLOG CARDS GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-14">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
           {displayedBlogs.map((blog, index) => (
             <motion.div 
               key={blog.id} 
@@ -179,7 +179,7 @@ const BlogSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="flex flex-col group cursor-pointer max-w-[280px] md:max-w-none mx-auto w-full"
+              className="flex flex-col group cursor-pointer max-w-[280px] md:max-w-[320px] mx-auto w-full"
             >
               <div className="relative overflow-hidden mb-4 aspect-square bg-gray-50 shadow-lg border border-brand-pink/5">
                 <span className="absolute top-3 left-3 z-10 bg-brand-pink/90 text-brand-dark px-3 py-1 text-[7px] md:text-[8px] font-bold tracking-widest uppercase shadow-sm">
