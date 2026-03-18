@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useShop } from '../../context/ShopContext';
 
 const ProductCard = ({ product }) => {
-  const { addToCart, toggleWishlist, isInWishlist } = useShop();
+  const { addToCart, toggleWishlist, isInWishlist, isAuthenticated, setIsAuthModalOpen } = useShop();
   const [isAdded, setIsAdded] = useState(false);
   const liked = isInWishlist(product.id);
 
@@ -13,6 +13,13 @@ const ProductCard = ({ product }) => {
       e.preventDefault();
       e.stopPropagation();
     }
+    
+    // Auth Check
+    if (!isAuthenticated) {
+      setIsAuthModalOpen(true);
+      return;
+    }
+
     addToCart(product);
     setIsAdded(true);
     setTimeout(() => setIsAdded(false), 2000);
