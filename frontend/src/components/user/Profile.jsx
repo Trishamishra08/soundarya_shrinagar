@@ -1,6 +1,6 @@
 import React from 'react';
 import { useShop } from '../../context/ShopContext';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FiUser, FiPhone, FiMail, FiMapPin, FiShoppingBag, FiHeart, FiLogOut, FiEdit2 } from 'react-icons/fi';
 
 const Profile = () => {
@@ -153,24 +153,24 @@ const Profile = () => {
           {/* Quick Stats & Details */}
           <div className="md:col-span-2 space-y-6">
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-center gap-4 hover:border-brand-pink/30 hover:shadow-lg transition-all cursor-pointer">
-                <div className="w-12 h-12 bg-brand-pink/10 rounded-full flex items-center justify-center text-brand-pink">
+              <Link to="/track-order" className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-center gap-4 hover:border-brand-pink/30 hover:shadow-lg transition-all cursor-pointer group">
+                <div className="w-12 h-12 bg-brand-pink/10 rounded-full flex items-center justify-center text-brand-pink group-hover:bg-brand-pink group-hover:text-white transition-colors">
                   <FiShoppingBag size={20} />
                 </div>
                 <div>
                   <span className="block text-[10px] font-black uppercase tracking-widest text-gray-400">Total Orders</span>
                   <span className="text-2xl font-serif text-[#5C2E3E] font-bold">12</span>
                 </div>
-              </div>
-              <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-center gap-4 hover:border-brand-pink/30 hover:shadow-lg transition-all cursor-pointer">
-                <div className="w-12 h-12 bg-brand-gold/10 rounded-full flex items-center justify-center text-brand-gold">
+              </Link>
+              <Link to="/wishlist" className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-center gap-4 hover:border-brand-pink/30 hover:shadow-lg transition-all cursor-pointer group">
+                <div className="w-12 h-12 bg-brand-gold/10 rounded-full flex items-center justify-center text-brand-gold group-hover:bg-brand-gold group-hover:text-white transition-colors">
                   <FiHeart size={20} />
                 </div>
                 <div>
                   <span className="block text-[10px] font-black uppercase tracking-widest text-gray-400">Wishlist</span>
                   <span className="text-2xl font-serif text-[#5C2E3E] font-bold">24</span>
                 </div>
-              </div>
+              </Link>
             </div>
 
             <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
