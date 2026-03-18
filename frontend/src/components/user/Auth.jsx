@@ -46,7 +46,7 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDFCFB] flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-[#FDFCFB] flex flex-col items-center justify-start p-4 pt-12 md:pt-20">
       {/* Decorative Background Elements */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden opacity-30">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,rgba(232,180,184,0.15)_0%,transparent_70%)]"></div>
