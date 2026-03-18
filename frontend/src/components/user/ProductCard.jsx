@@ -40,9 +40,9 @@ const ProductCard = ({ product }) => {
       viewport={{ once: true }}
       className="bg-white border-b border-r border-gray-100 flex flex-col h-full group relative"
     >
-      <div className="relative aspect-[3/4] overflow-hidden bg-[#F9F6F4]">
+      <div className="relative aspect-[3/4] overflow-hidden bg-[#F9F6F4] p-3 md:p-4">
         {/* Minimalist Labels */}
-        <div className="absolute top-0 left-0 z-10 p-2 pointer-events-none flex flex-col gap-1">
+        <div className="absolute top-0 left-0 z-20 p-2 pointer-events-none flex flex-col gap-1">
           {product.label && (
             <span className="bg-[#5C2E3E] text-white text-[7px] font-black px-2 py-0.5 uppercase tracking-widest">
               {product.label}
@@ -55,22 +55,25 @@ const ProductCard = ({ product }) => {
           )}
         </div>
 
-        {/* Wishlist Icon - Minimalist */}
+        {/* Wishlist Icon */}
         <button 
           type="button"
           onClick={handleWishlist}
-          className={`absolute top-2 right-2 z-30 transition-all active:scale-90 ${
-            liked ? 'text-brand-pink scale-110' : 'text-gray-300 hover:text-brand-pink'
+          className={`absolute top-4 right-4 z-30 transition-all p-1.5 rounded-full bg-white/70 backdrop-blur-sm active:scale-90 ${
+            liked ? 'text-brand-pink scale-110 opacity-100' : 'text-gray-400 hover:text-brand-pink'
           }`}
         >
-          <FiHeart className={`w-3.5 h-3.5 ${liked ? 'fill-current' : ''}`} />
+          <FiHeart className={`w-3 h-3 ${liked ? 'fill-current' : ''}`} />
         </button>
         
-        <img 
-          src={product.image} 
-          alt={product.name}
-          className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-        />
+        {/* The Image strictly shaped like the 2nd image floating gallery */}
+        <div className="w-full h-full rounded-2xl md:rounded-[2rem] border-[4px] md:border-[6px] border-white overflow-hidden shadow-sm relative z-10">
+          <img 
+            src={product.image} 
+            alt={product.name}
+            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+          />
+        </div>
         
         {/* Ultra-Compact Quick Add Overlay */}
         <div className="absolute inset-x-0 bottom-0 z-30 lg:translate-y-full group-hover:translate-y-0 transition-transform duration-500">
