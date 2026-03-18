@@ -76,11 +76,11 @@ const ProductCard = ({ product }) => {
         </div>
         
         {/* Ultra-Compact Quick Add Overlay */}
-        <div className="absolute inset-x-0 bottom-0 z-30 lg:translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+        <div className="absolute inset-x-3 md:inset-x-4 bottom-0 z-30 lg:translate-y-full group-hover:translate-y-0 transition-transform duration-500">
           <button 
             type="button"
             onClick={handleAdd}
-            className={`w-full py-3 flex items-center justify-center space-x-2 transition-all text-[8px] font-black uppercase tracking-[0.2em] shadow-2xl active:scale-95 ${
+            className={`w-full py-3 rounded-t-xl flex items-center justify-center space-x-2 transition-all text-[8px] font-black uppercase tracking-[0.2em] shadow-2xl active:scale-95 ${
               isAdded ? 'bg-brand-gold text-white' : 'bg-[#5C2E3E] text-white'
             }`}
           >
