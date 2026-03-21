@@ -20,10 +20,6 @@ const Auth = () => {
     }
   }, [isAuthenticated, isAdminPath, navigate]);
 
-  const leftPanelImage = isAdminPath 
-    ? (isLogin ? catSkincare : catMakeup)
-    : (isLogin ? catMakeup : catSkincare);
-  
   const [isLogin, setIsLogin] = useState(true);
   const [form, setForm] = useState({
     name: '',
@@ -34,6 +30,10 @@ const Auth = () => {
 
   const [step, setStep] = useState(1); // 1: Phone, 2: OTP (for customer)
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
+
+  const leftPanelImage = isAdminPath 
+    ? (isLogin ? catSkincare : catMakeup)
+    : (isLogin ? catMakeup : catSkincare);
 
   const handleInputChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
