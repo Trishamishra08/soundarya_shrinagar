@@ -89,7 +89,7 @@ const Auth = () => {
   };
 
   return (
-    <div className="fixed inset-0 w-full h-[100dvh] bg-[#5C2E3E] font-['Inter',_sans-serif] flex flex-col md:flex-row overflow-y-auto md:overflow-hidden !m-0 !p-0 select-none">
+    <div className="fixed inset-0 z-[999] w-full h-[100dvh] bg-[#5C2E3E] font-['Inter',_sans-serif] flex flex-col md:flex-row overflow-y-auto md:overflow-hidden !m-0 !p-0 select-none">
       
       {/* 
         TOP/LEFT PANEL (White background)
