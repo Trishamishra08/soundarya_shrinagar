@@ -22,16 +22,23 @@ const Auth = () => {
     phone: '',
   });
 
+  const [step, setStep] = useState(1); // 1: Phone, 2: OTP (for customer)
+  const [otp, setOtp] = useState('');
+
   const handleInputChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleCustomerSubmit = (e) => {
     e.preventDefault();
-
-    if (!isAdminPath) {
-      // Customer Portal Logic (Any 10 Digit Number)
-      if (form.phone && form.phone.length >= 10) {
+    if (step === 1) {
+      if (form.phone && form.phone.length === 10) {
+        setStep(2);
+      } else {
+        alert("Please enter a valid 10-digit phone number.");
+      }
+    } else {
+      if (otp === '123456') {
         setUser({
           name: 'Soundarya Customer',
           phone: form.phone,
@@ -40,14 +47,16 @@ const Auth = () => {
         });
         setIsAuthenticated(true);
         alert("Logged in successfully!");
-        navigate(-1); // Go back to where they came from (like checkout)
-        return;
+        navigate(-1);
       } else {
-        alert("Please enter a valid 10-digit phone number.");
-        return;
+        alert("Invalid OTP. Please use 123456.");
       }
     }
+  };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
     // Admin Portal Logic
     if (isLogin) {
       if (!form.email || !form.password) {
@@ -55,7 +64,6 @@ const Auth = () => {
         return;
       }
 
-      // Enforce specific fixed credentials for Admin Portal
       if (form.email !== 'customercare@saundaryashrinagar.com' || form.password !== 'admin@123') {
         alert("Invalid email or password. Please try again.");
         return;
@@ -91,99 +99,114 @@ const Auth = () => {
 
   if (!isAdminPath) {
     return (
-      <div className="fixed inset-0 z-[999] w-full h-[100dvh] bg-[#FAF7F8] font-['Inter',_sans-serif] flex items-center justify-center p-4 md:p-8 select-none">
+      <div className="fixed inset-0 z-[999] w-full h-[100dvh] bg-[#5C2E3E] font-['Inter',_sans-serif] flex flex-col md:flex-row overflow-y-auto md:overflow-hidden !m-0 !p-0 select-none">
         
-        {/* Makeup Themed Background */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-           <img 
-             src={catMakeup} 
-             alt="Background" 
-             className="w-full h-full object-cover opacity-[0.08] blur-[80px]" 
-           />
-           <div className="absolute inset-0 bg-[#FBD5DA]/20" />
-        </div>
-
-        <div className="absolute top-6 left-6 md:top-10 md:left-10 z-20">
-           <Link to="/" className="flex items-center gap-2 font-black text-[9px] md:text-[10px] uppercase tracking-widest text-[#5C2E3E] hover:text-[#5C2E3E]/60 transition-colors">
-              &larr; Back to Store
-           </Link>
-        </div>
-
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.4 }}
-          className="bg-white shadow-[0_30px_70px_-15px_rgba(92,46,62,0.15)] w-full max-w-[720px] min-h-[440px] relative z-10 rounded-[1.8rem] md:rounded-[2.2rem] p-1.5 md:p-2.5 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden border border-white/50 backdrop-blur-sm"
+        {/* LEFT PANEL (Makeup Image) */}
+        <div className="bg-[#FAF7F8] md:w-[45%] lg:w-[40%] flex flex-col relative z-10 
+          rounded-br-[2.5rem] lg:rounded-br-[8rem] 
+          lg:rounded-none lg:rounded-tr-[5rem] lg:rounded-br-[5rem]
+          px-6 pt-3 pb-6 md:pt-4 md:pb-10 min-h-[35vh] md:min-h-[50vh] transition-all shadow-xl shrink-0 overflow-hidden"
         >
-          {/* Left panel Image */}
-          <div className="w-full md:w-[45%] h-52 md:h-auto rounded-[1.3rem] md:rounded-[1.8rem] overflow-hidden relative shrink-0 border border-black/5">
-            <img src={catMakeup} alt="Makeup Inspiration" className="w-full h-full object-cover object-center" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#5C2E3E]/60 via-transparent to-transparent" />
-            <div className="absolute bottom-5 left-5 md:bottom-6 md:left-6">
-               <h2 className="text-white text-xl md:text-3xl font-extrabold leading-[1em] tracking-tight drop-shadow-md">
-                 RADIATE.<br />EMPOWER.<br />GLOW.
+          {/* Logo Section */}
+          <div className="flex items-center gap-2 mb-3 md:mb-10 md:px-6">
+            <img src={logoPink} alt="Logo" className="h-5 md:h-8 w-auto" />
+            <div className="flex flex-col leading-none">
+               <h2 className="text-[12px] md:text-base font-serif font-black text-[#5C2E3E] tracking-[0.1em]" style={{ fontFamily: "'Cinzel Decorative', serif" }}>
+                 Soundarya
                </h2>
+               <span className="text-[5px] md:text-[7px] text-[#5C2E3E] font-bold uppercase tracking-[0.4em] opacity-80" style={{ fontFamily: "'Cinzel', serif" }}>
+                 Shrinagar
+               </span>
             </div>
           </div>
-
-          {/* Right panel Form */}
-          <div className="w-full md:w-[55%] px-5 md:px-10 lg:px-12 py-6 md:py-8 flex flex-col justify-center relative">
-            
-            <div className="text-center mb-5 md:mb-8">
-               <div className="w-10 h-10 md:w-16 md:h-16 bg-white rounded-full border border-[#FBD5DA]/50 mx-auto mb-4 md:mb-5 flex items-center justify-center p-2 shadow-sm hover:scale-105 transition-transform overflow-hidden">
-                  <img src={logoPink} alt="Logo" className="w-full h-full object-contain" />
+          
+          <div className="flex-1 flex flex-col items-center justify-center relative px-4 text-center">
+            <motion.div 
+               initial={{ opacity: 0, scale: 0.9 }}
+               animate={{ opacity: 1, scale: 1 }}
+               className="relative mb-6"
+            >
+               <div className="w-28 h-28 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white">
+                  <img src={catMakeup} alt="Aesthetics" className="w-full h-full object-cover" />
                </div>
-               <h1 className="text-[17px] md:text-[24px] font-black text-[#5C2E3E] tracking-tight mb-0.5 uppercase" style={{ fontFamily: "'Outfit', 'Inter', sans-serif" }}>
-                 Welcome Back
-               </h1>
-               <p className="text-[8px] md:text-[10px] text-[#5C2E3E]/50 font-bold uppercase tracking-widest">
-                 Verified Access Only
-               </p>
-            </div>
-
-            <form onSubmit={handleSubmit} className="w-full space-y-3.5 md:space-y-4 cursor-text">
-              <div className="space-y-1.5">
-                <label className="text-[9px] md:text-[10px] text-gray-800 font-bold ml-0.5 tracking-wide">Mobile Number</label>
-                <div className="relative">
-                  <FiPhone className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs" />
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={form.phone}
-                    onChange={handleInputChange}
-                    required
-                    maxLength={10}
-                    placeholder="10-digit number"
-                    className="w-full bg-[#f4f6f9] border-none pl-9 pr-4 py-3 md:py-3.5 rounded-xl text-xs md:text-[12px] font-semibold focus:bg-[#ecf0f5] focus:outline-none focus:ring-1 focus:ring-black/10 transition-all text-black placeholder:text-gray-400"
-                  />
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between px-0.5">
-                <label className="flex items-center gap-2 cursor-pointer group">
-                  <input type="checkbox" className="w-3 h-3 rounded border-gray-300 text-black focus:ring-black cursor-pointer" />
-                  <span className="text-[8px] md:text-[9px] font-medium text-gray-500 group-hover:text-black transition-colors">Remember me</span>
-                </label>
-                <button type="button" className="text-[8px] md:text-[9px] font-bold text-black hover:underline transition-all">Forgot?</button>
-              </div>
-              
-              <button 
-                type="submit"
-                disabled={!form.phone || form.phone.length < 10}
-                className="w-full bg-black text-white py-3.5 md:py-3.5 rounded-xl text-[10px] md:text-[11px] font-black tracking-widest uppercase transition-all disabled:opacity-50 hover:bg-gray-800 hover:-translate-y-0.5 active:scale-95 shadow-lg shadow-black/10"
-              >
-                Sign In
-              </button>
-
-            </form>
-            
-            <div className="mt-8 md:mt-10 text-center text-[9px] md:text-[10px]">
-              <span className="text-gray-400 font-medium tracking-tight">New here? </span>
-              <button type="button" className="text-black font-extrabold hover:underline">Sign up</button>
-            </div>
-
+               <div className="absolute -bottom-2 -right-2 w-8 h-8 md:w-12 md:h-12 bg-[#92B89D] text-white rounded-full flex items-center justify-center border-4 border-[#FAF7F8]">
+                  <FiCheckCircle className="w-4 h-4 md:w-5 md:h-5" />
+               </div>
+            </motion.div>
+            <h3 className="hidden md:block text-[#5C2E3E] font-black uppercase tracking-[0.3em] text-[10px] opacity-40">Verified Access Only</h3>
           </div>
-        </motion.div>
+
+          <div className="absolute bottom-4 left-8">
+             <Link to="/" className="flex items-center gap-2 font-black text-[8px] uppercase tracking-widest text-[#5C2E3E] hover:text-[#5C2E3E]/70 transition-colors">
+                &larr; Back to sanctuary
+             </Link>
+          </div>
+        </div>
+
+        {/* RIGHT PANEL (Form) */}
+        <div className="flex-1 flex flex-col justify-center px-8 md:px-12 lg:px-24 py-8 md:py-16 text-white min-h-[55vh] md:min-h-[50vh]">
+          <div className="w-full max-w-sm md:max-w-[340px]">
+            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
+               <h1 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter mb-1" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                 {step === 1 ? 'Login' : 'Verify'}
+               </h1>
+               <p className="text-[9px] md:text-[10px] text-white/50 font-bold uppercase tracking-[0.3em] mb-8">
+                 {step === 1 ? 'Access your radiant account' : `OTP sent to ${form.phone}`}
+               </p>
+
+               <form onSubmit={handleCustomerSubmit} className="space-y-4">
+                 {step === 1 ? (
+                   <div className="space-y-2">
+                     <label className="text-[8px] md:text-[9px] text-white/80 font-black uppercase tracking-widest ml-1">Phone Essence</label>
+                     <div className="relative">
+                       <FiPhone className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
+                       <input
+                         type="tel"
+                         name="phone"
+                         value={form.phone}
+                         onChange={handleInputChange}
+                         required
+                         maxLength={10}
+                         placeholder="10-digit mobile number"
+                         className="w-full bg-white/5 border border-white/10 pl-10 pr-4 py-3.5 rounded-xl text-xs font-bold outline-none focus:bg-white/10 focus:border-white/30 transition-all text-white placeholder:text-white/20"
+                       />
+                     </div>
+                   </div>
+                 ) : (
+                   <div className="space-y-2">
+                     <label className="text-[8px] md:text-[9px] text-white/80 font-black uppercase tracking-widest ml-1">Secret Key (OTP)</label>
+                     <div className="relative">
+                       <FiLock className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
+                       <input
+                         type="text"
+                         value={otp}
+                         onChange={(e) => setOtp(e.target.value)}
+                         required
+                         maxLength={6}
+                         placeholder="Enter 6-digit OTP"
+                         className="w-full bg-white/5 border border-white/10 pl-10 pr-4 py-3.5 rounded-xl text-xs font-bold tracking-[0.5em] outline-none focus:bg-white/10 focus:border-white/30 transition-all text-white placeholder:text-white/20"
+                       />
+                     </div>
+                     <button type="button" onClick={() => setStep(1)} className="text-[8px] text-white/40 font-bold uppercase tracking-widest hover:text-white transition-colors ml-1 mt-2 underline underline-offset-4">Change Number</button>
+                   </div>
+                 )}
+
+                 <button 
+                   type="submit"
+                   className={`w-full bg-white text-[#5C2E3E] py-4 rounded-xl text-[10px] font-black uppercase tracking-[0.3em] shadow-2xl hover:bg-white/90 active:scale-95 transition-all mt-4`}
+                 >
+                   {step === 1 ? 'Gather Access' : 'Radiate Open'}
+                 </button>
+               </form>
+
+               <div className="mt-8 pt-8 border-t border-white/5 text-center">
+                 <p className="text-[8px] text-white/30 font-black uppercase tracking-widest flex items-center justify-center gap-2">
+                    Soundarya Shrinagar Ritual System
+                 </p>
+               </div>
+            </motion.div>
+          </div>
+        </div>
       </div>
     );
   }
