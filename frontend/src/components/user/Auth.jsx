@@ -93,7 +93,7 @@ const Auth = () => {
       <div className="fixed inset-0 z-[999] w-full h-[100dvh] bg-[#FAF7F8] font-['Inter',_sans-serif] flex flex-col items-center justify-center p-4 md:p-8 select-none overflow-y-auto">
         
         <div className="absolute top-6 left-6 md:top-10 md:left-10 z-20">
-           <Link to="/" className="flex items-center gap-2 font-black text-[9px] md:text-[10px] uppercase tracking-widest text-[#5C2E3E] hover:text-[#E8B4B8] transition-colors">
+           <Link to="/" className="flex items-center gap-2 font-black text-[9px] md:text-[10px] uppercase tracking-widest text-[#5C2E3E] hover:text-[#5C2E3E]/60 transition-colors">
               &larr; Back to Store
            </Link>
         </div>
@@ -101,53 +101,65 @@ const Auth = () => {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white p-8 md:p-12 border border-[#E8B4B8]/20 shadow-2xl shadow-[#E8B4B8]/10 w-full max-w-sm relative z-10 rounded-none"
+          className="flex flex-col bg-white shadow-2xl shadow-[#E8B4B8]/30 w-full max-w-[340px] md:max-w-[380px] relative z-10 rounded-[1.5rem] overflow-hidden border border-[#E8B4B8]/30"
         >
-          <div className="text-center mb-8 md:mb-10">
-             <img src={logoPink} alt="Soundarya Shrinagar" className="h-10 md:h-12 mx-auto mb-4" />
+          {/* Card Banner Image */}
+          <div className="h-32 md:h-40 w-full relative">
+            <img src={catSkincare} alt="Welcome" className="w-full h-full object-cover opacity-80" />
+            <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent" />
+            <div className="absolute bottom-0 left-0 w-full flex justify-center translate-y-1/2">
+              <div className="bg-white p-2.5 rounded-full shadow-lg border border-[#E8B4B8]/20 flex items-center justify-center">
+                <img src={logoPink} alt="Soundarya Shrinagar" className="h-8 md:h-10 object-contain drop-shadow-sm" />
+              </div>
+            </div>
+          </div>
+
+          <div className="px-6 pb-8 pt-10 md:px-10 md:pb-10 md:pt-12 flex flex-col items-center">
              <h1 className="text-xl md:text-2xl font-serif font-black text-[#5C2E3E] tracking-widest mb-1.5 leading-none" style={{ fontFamily: "'Cinzel Decorative', serif" }}>
                SIGN IN
              </h1>
-             <p className="text-[7px] md:text-[8px] text-gray-400 font-bold uppercase tracking-[0.2em]">
-               Verified Customer Access
+             <p className="text-[7.5px] text-gray-400 font-bold uppercase tracking-[0.25em] mb-7 text-center">
+               Verified Client Portal
              </p>
-          </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4 md:space-y-5">
-            <div className="space-y-1.5 md:space-y-2">
-              <label className="text-[8px] md:text-[9px] text-[#5C2E3E] font-bold uppercase tracking-widest">Mobile Number</label>
-              <div className="relative">
-                <FiPhone className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm md:text-base" />
-                <input
-                  type="tel"
-                  name="phone"
-                  value={form.phone}
-                  onChange={handleInputChange}
-                  required
-                  maxLength={10}
-                  placeholder="e.g. 8839044030"
-                  className="w-full bg-[#FAF7F8] border border-[#E8B4B8]/30 pl-11 pr-4 py-3 md:py-3.5 text-[11px] md:text-xs font-medium focus:bg-white focus:border-[#E8B4B8] outline-none transition-all text-[#5C2E3E] placeholder:text-gray-300 tracking-widest rounded-none"
-                />
+            <form onSubmit={handleSubmit} className="w-full space-y-5 cursor-text">
+              <div className="space-y-2">
+                <div className="relative group">
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                     <span className="text-[#5C2E3E] font-bold text-[10px] md:text-[11px]">+91</span>
+                     <div className="w-[1px] h-4 bg-[#E8B4B8]/50" />
+                  </div>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={form.phone}
+                    onChange={handleInputChange}
+                    required
+                    maxLength={10}
+                    placeholder="Enter 10-digit mobile"
+                    className="w-full bg-[#FAF7F8]/50 border border-[#E8B4B8]/40 pl-[3.5rem] pr-4 py-3.5 md:py-4 text-[11px] md:text-xs font-bold focus:bg-white focus:border-[#E8B4B8] focus:ring-4 focus:ring-[#E8B4B8]/10 outline-none transition-all text-[#5C2E3E] placeholder:text-gray-300 tracking-[0.15em] rounded-xl hover:border-[#E8B4B8]/70"
+                  />
+                </div>
               </div>
-            </div>
+              
+              <button 
+                type="submit"
+                disabled={!form.phone || form.phone.length < 10}
+                className="w-full bg-[#5C2E3E] text-white py-3.5 md:py-4 rounded-xl text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-center disabled:opacity-50 hover:bg-[#E8B4B8] hover:text-[#5C2E3E] transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:scale-95"
+              >
+                Secure Access
+              </button>
+            </form>
             
-            <button 
-              type="submit"
-              disabled={!form.phone || form.phone.length < 10}
-              className="w-full bg-[#5C2E3E] text-white py-3.5 md:py-4 text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-center mt-6 disabled:opacity-50 hover:bg-[#E8B4B8] hover:text-[#5C2E3E] transition-all shadow-lg hover:shadow-[#E8B4B8]/50 rounded-none"
-            >
-              Continue to Shop
-            </button>
-          </form>
-          
-          <p className="text-[6px] text-center mt-8 md:mt-10 text-gray-400 font-bold uppercase tracking-[0.2em]">
-            By continuing, you agree to Soundarya's Terms
-          </p>
+            <p className="text-[5.5px] text-center mt-7 text-gray-400 font-bold uppercase tracking-[0.25em] opacity-60">
+              By continuing you accept Soundarya's Terms & Conditions
+            </p>
+          </div>
         </motion.div>
         
         {/* Background Decorative elements */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-[#E8B4B8]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#E8B4B8]/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-[#E8B4B8]/20 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#E8B4B8]/20 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2" />
       </div>
     );
   }
