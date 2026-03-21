@@ -174,14 +174,52 @@ const Auth = () => {
         <div className="flex-1 flex flex-col justify-center px-8 md:px-12 lg:px-24 py-8 md:py-16 text-white min-h-[55vh] md:min-h-[50vh]">
           <div className="w-full max-w-sm md:max-w-[340px]">
             <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
-               <h1 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter mb-1" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                 {step === 1 ? 'Login' : 'Verify'}
-               </h1>
+               <div className="flex items-end justify-between mb-8">
+                  <h1 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter leading-none" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                    {isLogin ? 'Login' : 'Join'}
+                  </h1>
+                  
+                  <div className="flex gap-4">
+                     <button 
+                       onClick={() => setIsLogin(true)} 
+                       className={`text-[8px] md:text-[9px] font-black uppercase tracking-widest transition-all pb-1 relative ${isLogin ? 'text-[#92B89D]' : 'text-white/40 hover:text-white/70'}`}
+                     >
+                        Sign In
+                        {isLogin && <span className="absolute bottom-0 left-0 w-full h-[0.5px] bg-[#92B89D] rounded-full" />}
+                     </button>
+                     <button 
+                       onClick={() => setIsLogin(false)} 
+                       className={`text-[8px] md:text-[9px] font-black uppercase tracking-widest transition-all pb-1 relative ${!isLogin ? 'text-[#92B89D]' : 'text-white/40 hover:text-white/70'}`}
+                     >
+                        Create
+                        {!isLogin && <span className="absolute bottom-0 left-0 w-full h-[0.5px] bg-[#92B89D] rounded-full" />}
+                     </button>
+                  </div>
+               </div>
+
                <p className="text-[9px] md:text-[10px] text-white/50 font-bold uppercase tracking-[0.3em] mb-8">
-                 {step === 1 ? 'Access your radiant account' : `OTP sent to ${form.phone}`}
+                 {isLogin ? (step === 1 ? 'Access your radiant account' : `OTP sent to ${form.phone}`) : 'Create your sacred profile'}
                </p>
 
                <form onSubmit={handleCustomerSubmit} className="space-y-4">
+                 {!isLogin && step === 1 && (
+                   <div className="space-y-2">
+                     <label className="text-[8px] md:text-[9px] text-white/80 font-black uppercase tracking-widest ml-1">Full Name</label>
+                     <div className="relative">
+                       <FiUser className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
+                       <input
+                         type="text"
+                         name="name"
+                         value={form.name}
+                         onChange={handleInputChange}
+                         required={!isLogin}
+                         placeholder="Enter your name"
+                         className="w-full bg-white/5 border border-white/10 pl-10 pr-4 py-3.5 rounded-xl text-xs font-bold outline-none focus:bg-white/10 focus:border-white/30 transition-all text-white placeholder:text-white/20"
+                       />
+                     </div>
+                   </div>
+                 )}
+
                  {step === 1 ? (
                    <div className="space-y-2">
                      <label className="text-[8px] md:text-[9px] text-white/80 font-black uppercase tracking-widest ml-1">Phone Essence</label>
