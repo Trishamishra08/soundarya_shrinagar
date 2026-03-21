@@ -73,6 +73,10 @@ const UserRoutes = () => (
 
 const AdminRoutes = () => (
   <Routes>
+    {/* Standalone Route for Admin Login */}
+    <Route path="/login" element={<Auth />} />
+    
+    {/* Nested Routes inside AdminLayout */}
     <Route element={<AdminLayout />}>
       <Route path="/" element={<AdminDashboard />} />
       <Route path="/products" element={<AdminProducts />} />

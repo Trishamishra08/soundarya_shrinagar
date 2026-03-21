@@ -8,9 +8,11 @@ import {
   FiLayers, 
   FiImage,
   FiPlus,
-  FiMoreVertical
+  FiMoreVertical,
+  FiLogOut
 } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useShop } from '../../context/ShopContext';
 import { initialProducts } from '../../data/products';
 import catSkincare from '../../assets/images/cat_skincare_new.png';
 import catHaircare from '../../assets/images/cat_haircare_new.png';
@@ -22,6 +24,9 @@ import catWellness from '../../assets/images/cat_wellness_new.png';
 import catBeautyKits from '../../assets/images/cat_beautykits_new.png';
 
 const AdminDashboard = () => {
+  const navigate = useNavigate();
+  const { setIsAuthenticated, setUser } = useShop();
+
   const categories = [
     { id: 'Skincare', name: 'Skincare', image: catSkincare },
     { id: 'Soaps', name: 'Soaps', image: catSoaps },
@@ -35,6 +40,14 @@ const AdminDashboard = () => {
 
   const handleExport = () => {
     alert('Generating Inventory Vault Report... Download starting soon.');
+  };
+
+  const handleExit = () => {
+    if (window.confirm('Securely terminating admin session. Proceed to exit?')) {
+      setIsAuthenticated(false);
+      setUser(null);
+      navigate('/admin/login');
+    }
   };
 
   const recentOrders = [
@@ -60,12 +73,18 @@ const AdminDashboard = () => {
         <div className="flex items-center gap-2">
           <button 
             onClick={handleExport}
-            className="bg-white text-brand-dark px-4 py-2 rounded-none text-[9px] font-bold uppercase tracking-widest border border-brand-pink/10 hover:shadow-md transition-all"
+            className="hidden md:block bg-white text-brand-dark px-3 mt-1 py-1.5 rounded-none text-[9px] font-bold uppercase tracking-widest border border-brand-pink/10 hover:shadow-md transition-all"
           >
             Export
           </button>
-          <Link to="/admin/products?add=true" className="bg-brand-dark text-white px-4 py-2 rounded-none text-[9px] font-bold uppercase tracking-widest shadow-lg shadow-brand-dark/10 flex items-center gap-2 hover:bg-black transition-all cursor-pointer">
-            <FiPlus /> New Entry
+          <button 
+            onClick={handleExit}
+            className="bg-red-50 text-red-600 px-3 py-1.5 mt-1 rounded-none text-[9px] font-bold uppercase tracking-widest border border-red-100 hover:bg-red-500 hover:text-white transition-all flex items-center gap-1.5 cursor-pointer shadow-sm shadow-red-500/10"
+          >
+            <FiLogOut size={12} /> Exit
+          </button>
+          <Link to="/admin/products?add=true" className="bg-brand-dark text-white px-3 py-1.5 mt-1 rounded-none text-[9px] font-bold uppercase tracking-widest shadow-lg shadow-brand-dark/10 flex items-center gap-1.5 hover:bg-black transition-all cursor-pointer">
+            <FiPlus size={12} /> Entry
           </Link>
         </div>
       </div>

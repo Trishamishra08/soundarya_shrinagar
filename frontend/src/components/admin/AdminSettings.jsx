@@ -1,21 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AdminLayout from './AdminLayout';
-import { FiUser, FiMail, FiShield, FiLock, FiBell, FiChevronRight, FiEdit3, FiSettings, FiX, FiCheck, FiSave, FiImage } from 'react-icons/fi';
+import { FiUser, FiMail, FiShield, FiLock, FiBell, FiChevronRight, FiEdit3, FiSettings, FiX, FiCheck, FiSave, FiImage, FiLogOut } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useShop } from '../../context/ShopContext';
+import { useNavigate } from 'react-router-dom';
 
 const AdminSettings = () => {
+  const { user, setUser, setIsAuthenticated } = useShop();
+  const navigate = useNavigate();
+
   const [adminInfo, setAdminInfo] = useState({
-    name: 'Trisha Mishra',
-    role: 'Super Admin',
-    email: 'customercare@saundaryashringar.com',
-    phone: '+91 9896472169',
-    joined: 'Jan 2024'
+    name: user?.name || 'Trisha Mishra',
+    role: user?.role || 'Super Admin',
+    email: user?.email || 'customercare@saundaryashringar.com',
+    phone: user?.phone || '+91 9896472169',
+    joined: user?.joined || 'Jan 2024',
+    password: user?.password || 'admin123'
   });
+
+  // Sync state if user context updates
+  useEffect(() => {
+    if (user) {
+      setAdminInfo(prev => ({
+        ...prev,
+        name: user.name || prev.name,
+        email: user.email || prev.email,
+        password: user.password || prev.password,
+        role: user.role || prev.role,
+        phone: user.phone || prev.phone
+      }));
+    }
+  }, [user]);
 
   const [isEditingProfile, setIsEditingProfile] = useState(false);
   const [profileForm, setProfileForm] = useState({ ...adminInfo });
   const [activeSecurityView, setActiveSecurityView] = useState(null); // 'password', 'notifications', 'presets', 'archive'
-  const [passwordForm, setPasswordForm] = useState({ current: '', new: '', confirm: '' });
+  const [passwordForm, setPasswordForm] = useState({ current: adminInfo.password, new: '', confirm: '' });
+
+  useEffect(() => {
+    setPasswordForm(prev => ({ ...prev, current: adminInfo.password }));
+    setProfileForm({ ...adminInfo });
+  }, [adminInfo]);
 
   const handleProfileUpdate = (e) => {
     e.preventDefault();
@@ -30,9 +55,17 @@ const AdminSettings = () => {
       alert('New passwords do not match!');
       return;
     }
+    setAdminInfo(prev => ({ ...prev, password: passwordForm.new }));
     setActiveSecurityView(null);
-    setPasswordForm({ current: '', new: '', confirm: '' });
+    setPasswordForm({ current: passwordForm.new, new: '', confirm: '' });
     alert('Password changed successfully!');
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    setIsAuthenticated(false);
+    alert('You have been securely logged out.');
+    navigate('/admin/login');
   };
 
   const renderSecurityView = () => {
@@ -53,7 +86,7 @@ const AdminSettings = () => {
                 <div className="space-y-1.5">
                    <label className="text-[8px] font-bold text-white/40 uppercase tracking-widest">Current Password</label>
                    <input 
-                      type="password" 
+                      type="text" 
                       className="w-full bg-white/5 border border-white/10 p-3 text-xs outline-none focus:border-brand-gold transition-all"
                       value={passwordForm.current}
                       onChange={(e) => setPasswordForm({...passwordForm, current: e.target.value})}
@@ -206,6 +239,18 @@ const AdminSettings = () => {
                     <FiChevronRight size={14} className="text-gray-200 group-hover:text-brand-pink group-hover:translate-x-1 transition-all" />
                   </div>
               ))}
+              
+              <div 
+                onClick={handleLogout}
+                className="col-span-1 md:col-span-2 mt-4 flex items-center justify-center p-4 rounded-none bg-red-50 hover:bg-red-600 border border-red-100 transition-all cursor-pointer group shadow-sm"
+              >
+                <div className="flex items-center gap-3">
+                  <FiLogOut size={16} className="text-red-500 group-hover:text-white transition-colors" />
+                  <p className="text-[11px] font-bold text-red-600 group-hover:text-white uppercase tracking-widest leading-none transition-colors">
+                    Logout Authority Session
+                  </p>
+                </div>
+              </div>
             </div>
           </motion.div>
         );
@@ -230,7 +275,7 @@ const AdminSettings = () => {
              <div className="px-4 pb-6 -mt-8 text-center">
                 <div className="w-16 h-16 mx-auto rounded-none bg-white p-1 shadow-lg mb-3 border border-brand-pink/5 relative group cursor-pointer">
                    <div className="w-full h-full rounded-none bg-brand-dark flex items-center justify-center text-brand-gold text-xl font-serif font-black">
-                      TM
+                      {adminInfo.name.substring(0, 2).toUpperCase()}
                    </div>
                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
                       <FiImage className="text-white" size={14} />
@@ -272,12 +317,12 @@ const AdminSettings = () => {
                     <input type="text" value={profileForm.name} onChange={(e) => setProfileForm({...profileForm, name: e.target.value})} className="w-full bg-brand-light/10 border border-brand-pink/10 p-3 text-[10px] font-medium outline-none focus:border-brand-pink transition-all uppercase" />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-[8px] font-bold text-gray-400 uppercase tracking-widest pl-1">Email Dispatch</label>
+                    <label className="text-[8px] font-bold text-gray-400 uppercase tracking-widest pl-1">Secure Email</label>
                     <input type="email" value={profileForm.email} onChange={(e) => setProfileForm({...profileForm, email: e.target.value})} className="w-full bg-brand-light/10 border border-brand-pink/10 p-3 text-[10px] font-medium outline-none focus:border-brand-pink transition-all" />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-[8px] font-bold text-gray-400 uppercase tracking-widest pl-1">Secure Contact</label>
-                    <input type="text" value={profileForm.phone} onChange={(e) => setProfileForm({...profileForm, phone: e.target.value})} className="w-full bg-brand-light/10 border border-brand-pink/10 p-3 text-[10px] font-medium outline-none focus:border-brand-pink transition-all" />
+                    <label className="text-[8px] font-bold text-gray-400 uppercase tracking-widest pl-1">Active Password</label>
+                    <input type="text" value={profileForm.password} onChange={(e) => setProfileForm({...profileForm, password: e.target.value})} className="w-full bg-brand-light/10 border border-brand-pink/10 p-3 text-[10px] font-medium outline-none focus:border-brand-pink transition-all" />
                   </div>
                   <div className="flex items-end justify-end gap-3 mt-4 md:col-span-2">
                     <button type="button" onClick={() => setIsEditingProfile(false)} className="text-[9px] font-bold uppercase text-gray-400 hover:text-brand-dark tracking-widest">Discard</button>
@@ -315,13 +360,13 @@ const AdminSettings = () => {
                       <FiCheck className="text-green-500" size={10} />
                     </div>
                   </div>
-                  <div>
-                    <p className="text-[7px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Secure Contact</p>
-                    <p className="text-[11px] font-medium text-brand-dark uppercase tracking-tight">{adminInfo.phone}</p>
+                  <div className="col-span-2 md:col-span-1">
+                    <p className="text-[7px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Secure Email</p>
+                    <p className="text-[11px] font-medium text-brand-dark lowercase overflow-hidden text-ellipsis whitespace-nowrap">{adminInfo.email}</p>
                   </div>
                   <div>
-                    <p className="text-[7px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Authentication Join</p>
-                    <p className="text-[11px] font-medium text-brand-dark uppercase tracking-tight">{adminInfo.joined}</p>
+                    <p className="text-[7px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Active Password</p>
+                    <p className="text-[11px] font-medium text-brand-dark tracking-wide">{adminInfo.password}</p>
                   </div>
                 </div>
               </motion.div>

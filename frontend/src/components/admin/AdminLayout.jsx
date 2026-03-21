@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link, useLocation, Outlet } from 'react-router-dom';
+import { Link, useLocation, Outlet, Navigate, useNavigate } from 'react-router-dom';
+import { useShop } from '../../context/ShopContext';
 import { 
   FiGrid, 
   FiShoppingBag, 
@@ -19,6 +20,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 const AdminLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 1024);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { isAuthenticated, setIsAuthenticated, setUser, user } = useShop();
+
+  // Route protection
+  if (!isAuthenticated) {
+    return <Navigate to="/admin/login" replace />;
+  }
 
   React.useEffect(() => {
     // Close sidebar automatically when navigating on mobile
@@ -41,7 +49,9 @@ const AdminLayout = () => {
   const handleLogout = (e) => {
     e.preventDefault();
     if (window.confirm('Securely terminating admin session. Proceed to exit?')) {
-      window.location.href = '/';
+      setIsAuthenticated(false);
+      setUser(null);
+      navigate('/admin/login');
     }
   };
 
@@ -210,13 +220,13 @@ const AdminLayout = () => {
             </div>
 
             <div className="w-[1px] h-6 bg-brand-pink/10 hidden sm:block"></div>
-            <div className="flex items-center gap-3 group cursor-pointer" onClick={() => (window.location.href = '/admin/settings')}>
+            <div className="flex items-center gap-3 group cursor-pointer" onClick={() => navigate('/admin/settings')}>
               <div className="text-right hidden sm:block">
-                <p className="text-[9px] font-bold text-brand-dark uppercase tracking-widest leading-none mb-0.5">Trisha Mishra</p>
-                <p className="text-[6px] text-brand-pink font-bold uppercase tracking-tighter opacity-70">Super Admin Control</p>
+                <p className="text-[9px] font-bold text-brand-dark uppercase tracking-widest leading-none mb-0.5">{user?.name || 'Trisha Mishra'}</p>
+                <p className="text-[6px] text-brand-pink font-bold uppercase tracking-tighter opacity-70">{user?.role || 'Super Admin Control'}</p>
               </div>
               <div className="w-9 h-9 rounded-md bg-brand-dark flex items-center justify-center text-brand-gold text-[11px] font-bold shadow-lg transition-transform group-hover:scale-105">
-                TM
+                {user?.name ? user.name.substring(0, 2).toUpperCase() : 'TM'}
               </div>
             </div>
           </div>
