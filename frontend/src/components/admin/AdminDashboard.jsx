@@ -92,24 +92,42 @@ const AdminDashboard = () => {
       {/* Stats Grid - Compacted */}
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { title: 'Total Products', value: '1,280', change: '+12%', icon: <FiPackage />, link: '/admin/products' },
-          { title: 'Registered Users', value: '24,500', change: '+18%', icon: <FiUsers />, link: '/admin/users' },
-          { title: 'Categories', value: '12', change: '8 Active', icon: <FiLayers />, link: '/admin/categories' },
-          { title: 'Live Banners', value: '6', change: '4 Active', icon: <FiImage />, link: '/admin/banners' }
+          { title: 'Total Products', value: '1,280', change: '+12%', icon: <FiPackage />, link: '/admin/products', color: 'teal' },
+          { title: 'Registered Users', value: '24,500', change: '+18%', icon: <FiUsers />, link: '/admin/users', color: 'blue' },
+          { title: 'Categories', value: '12', change: '8 Active', icon: <FiLayers />, link: '/admin/categories', color: 'green' },
+          { title: 'Live Banners', value: '6', change: '4 Active', icon: <FiImage />, link: '/admin/banners', color: 'yellow' }
         ].map((stat, i) => (
           <Link to={stat.link} key={i}>
             <motion.div 
               whileHover={{ y: -2 }}
-              className="bg-white p-3 rounded-none border border-brand-pink/10 shadow-sm group cursor-pointer transition-all"
+              className="bg-white p-3 rounded-none border border-gray-100 shadow-sm group cursor-pointer transition-all relative overflow-hidden"
             >
-              <div className="flex justify-between items-start mb-2">
-                <div className="p-2 bg-brand-light/50 text-brand-dark rounded-none group-hover:bg-brand-pink group-hover:text-white transition-colors">
+              {/* Decorative background element like Hirato */}
+              <div className={`absolute -top-4 -right-4 w-16 h-16 rounded-full opacity-[0.08] ${
+                stat.color === 'teal' ? 'bg-teal-500' :
+                stat.color === 'blue' ? 'bg-blue-500' :
+                stat.color === 'green' ? 'bg-green-500' :
+                'bg-yellow-500'
+              }`} />
+
+              <div className="flex justify-between items-start mb-2 relative z-10">
+                <div className={`p-2 rounded-none transition-colors ${
+                  stat.color === 'teal' ? 'bg-teal-50 text-teal-600 group-hover:bg-teal-600 group-hover:text-white' :
+                  stat.color === 'blue' ? 'bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white' :
+                  stat.color === 'green' ? 'bg-green-50 text-green-600 group-hover:bg-green-600 group-hover:text-white' :
+                  'bg-yellow-50 text-yellow-600 group-hover:bg-yellow-600 group-hover:text-white'
+                }`}>
                   {React.cloneElement(stat.icon, { size: 14 })}
                 </div>
-                <span className="text-[7px] font-bold text-green-600 bg-green-50 px-1 py-0.5 rounded-none border border-green-100">{stat.change}</span>
+                <span className={`text-[7px] font-bold px-1 py-0.5 rounded-none border ${
+                  stat.color === 'teal' ? 'text-teal-600 bg-teal-50 border-teal-100' :
+                  stat.color === 'blue' ? 'text-blue-600 bg-blue-50 border-blue-100' :
+                  stat.color === 'green' ? 'text-green-600 bg-green-50 border-green-100' :
+                  'text-yellow-600 bg-yellow-50 border-yellow-100'
+                }`}>{stat.change}</span>
               </div>
-              <h3 className="text-[8px] font-medium text-gray-400 uppercase tracking-widest leading-none mb-1">{stat.title}</h3>
-              <p className="text-lg font-serif font-black text-brand-dark tracking-tight">{stat.value}</p>
+              <h3 className="text-[8px] font-medium text-gray-400 uppercase tracking-widest leading-none mb-1 relative z-10">{stat.title}</h3>
+              <p className="text-lg font-serif font-black text-brand-dark tracking-tight relative z-10">{stat.value}</p>
             </motion.div>
           </Link>
         ))}
