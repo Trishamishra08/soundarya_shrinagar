@@ -75,11 +75,11 @@ const HeroCarousel = () => {
               <img 
                 src={slide.image} 
                 alt={slide.title}
-                className="absolute inset-0 w-full h-full object-cover transform scale-105 transition-transform duration-[10000ms] linear opacity-100"
+                className="absolute inset-0 w-full h-full object-cover transform scale-105 transition-transform duration-[10000ms] linear opacity-70"
               />
               
               {/* Refinement Overlay for Text Legibility */}
-              <div className="absolute inset-0 bg-gradient-to-r from-white/50 via-white/10 to-transparent z-10" />
+              <div className="absolute inset-0 bg-gradient-to-r from-white/80 via-white/30 to-transparent z-10" />
               
               {/* Content Overlay */}
               <div className={`container mx-auto px-6 md:px-20 lg:px-32 relative z-20 h-full flex items-center ${slide.position}`}>
