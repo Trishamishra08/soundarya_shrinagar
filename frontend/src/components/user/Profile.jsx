@@ -181,9 +181,17 @@ const Profile = () => {
                   <FiMapPin /> Saved Addresses
                 </h3>
                 {!isEditing && (
-                  <button className="text-[9px] font-black uppercase tracking-widest text-brand-pink border-b border-brand-pink hover:text-[#5C2E3E] hover:border-[#5C2E3E] transition-colors">
-                    Add New
-                  </button>
+                  <div className="flex gap-4">
+                    <button 
+                      onClick={() => setIsEditing(true)}
+                      className="text-[9px] font-black uppercase tracking-widest text-[#5C2E3E] border-b border-[#5C2E3E] hover:text-brand-pink hover:border-brand-pink transition-colors"
+                    >
+                      Edit Address
+                    </button>
+                    <button className="text-[9px] font-black uppercase tracking-widest text-brand-pink border-b border-brand-pink hover:text-[#5C2E3E] hover:border-[#5C2E3E] transition-colors">
+                      Add New
+                    </button>
+                  </div>
                 )}
               </div>
 

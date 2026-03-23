@@ -150,9 +150,9 @@ const Contact = () => {
       <footer className="py-8 bg-white overflow-hidden">
         <div className="container mx-auto px-4 flex flex-col items-center justify-center text-center">
           <div className="flex space-x-8 mb-4">
-            <SocialIcon icon={<FiInstagram />} href="#" />
-            <SocialIcon icon={<FiFacebook />} href="#" />
-            <SocialIcon icon={<FiTwitter />} href="#" />
+            <SocialIcon icon={<FiInstagram />} href="https://www.instagram.com/saundaryashringarpvtltd/" />
+            <SocialIcon icon={<FiFacebook />} href="https://www.facebook.com/saundaryashringarpvtltd/" />
+            <SocialIcon icon={<FiTwitter />} href="https://twitter.com/saundaryashringar" />
           </div>
           <p className="text-gray-400 text-[10px] uppercase tracking-widest font-bold">
             Stay Inspired &bull; Saundarya Shrinagar

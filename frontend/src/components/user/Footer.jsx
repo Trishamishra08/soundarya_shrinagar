@@ -34,9 +34,9 @@ const Footer = () => {
           <div className="space-y-3">
             <h3 className="text-[10px] font-serif font-black uppercase tracking-[0.2em] text-[#2D1810]">Connect with Us</h3>
             <ul className="space-y-1.5 text-[9px] font-bold uppercase tracking-widest text-[#2D1810]/80">
-              <li><a href="https://facebook.com" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-brand-pink transition-colors group"><FiFacebook className="group-hover:scale-110 transition-transform" /> Facebook</a></li>
-              <li><a href="https://instagram.com" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-brand-pink transition-colors group"><FiInstagram className="group-hover:scale-110 transition-transform" /> Instagram</a></li>
-              <li><a href="https://twitter.com" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-brand-pink transition-colors group"><FiTwitter className="group-hover:scale-110 transition-transform" /> Twitter/X</a></li>
+              <li><a href="https://facebook.com/saundaryashringarpvtltd/" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-brand-pink transition-colors group"><FiFacebook className="group-hover:scale-110 transition-transform" /> Facebook</a></li>
+              <li><a href="https://instagram.com/saundaryashringarpvtltd/" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-brand-pink transition-colors group"><FiInstagram className="group-hover:scale-110 transition-transform" /> Instagram</a></li>
+              <li><a href="https://twitter.com/saundaryashringar" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-brand-pink transition-colors group"><FiTwitter className="group-hover:scale-110 transition-transform" /> Twitter/X</a></li>
             </ul>
           </div>
 
